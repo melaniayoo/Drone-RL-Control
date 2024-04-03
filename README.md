@@ -16,8 +16,8 @@ Drone-RL-Control
 ...
 ```
 
-## Quadcopter Model:
-CREDIT: Shanghai Jiao Tong University Drone (sjtu_drone) repository (link: https://github.com/NovoG93/sjtu_drone) used under the GPL 3.0 license.
+## Credit
+Shanghai Jiao Tong University Drone (sjtu_drone) repository (link: https://github.com/NovoG93/sjtu_drone). The description & control packages in the repository used under the GPL 3.0 license.
 
 ## Project Members
 Melania Yoo, Ahnaful Hoque, &amp; [Karan Kapoor](https://github.com/k-kaps/)
