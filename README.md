@@ -20,4 +20,4 @@ Drone-RL-Control
 Shanghai Jiao Tong University Drone (sjtu_drone) repository (link: https://github.com/NovoG93/sjtu_drone). The description & control packages in the repository used under the GPL 3.0 license.
 
 ## Project Members
-Melania Yoo, Ahnaful Hoque, &amp; [Karan Kapoor](https://github.com/k-kaps/)
+[Melania Yoo](https://github.com/melaniayoo/), Ahnaful Hoque, &amp; [Karan Kapoor](https://github.com/k-kaps/)
