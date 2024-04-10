@@ -23,7 +23,25 @@ class DroneController(Node):
 
     # Action Space Command Function : Drone Velocity
     def action_space_vel_command(self, velocity):
-        pass
+        """
+        Parameter Info:
+        velocity = 
+                    [[linear_x, linear_y, linear_z],
+                     [angular_x, angular_y, angular_z]]
+        """
+        msg = Twist()
+
+        msg.linear.x = float(velocity[0][1])
+        msg.linear.y = float(velocity[0][2])
+        msg.linear.z = float(velocity[0][3])
+
+        msg.angular.x = float(velocity[1][1])
+        msg.angular.y = float(velocity[1][2])
+        msg.angular.z = float(velocity[1][3])
+
+        self.action_space_vel.publish(msg)
+        self.get_logger().info("Sent Velocity (Linear) : " + str(velocity[0]))
+        self.get_logger().info("Sent Velocity (Angular) : " + str(velocity[1]))
 
     # State Space Callback Functions: Images, IMU, Sonar, GPS Navigation, GPS Velocity
     def state_space_img_callback(self, msg:Image):
