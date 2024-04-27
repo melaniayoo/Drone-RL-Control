@@ -12,12 +12,22 @@ The directory structure meanwhile is:
 # [TODO] Add the directory structure here
 Drone-RL-Control
 |---- sjtu_description
-|---- sjtu_control
+|---- sjtu_drone_control
+|---- drone_control
+|---- drone_rl
 ...
 ```
 
-## Credit
-Shanghai Jiao Tong University Drone (sjtu_drone) repository (link: https://github.com/NovoG93/sjtu_drone). The description & control packages in the repository used under the GPL 3.0 license.
+## Training the Model
+The reinforcement learning model was trained on the [drone_test](/drone_rl/worlds/drone_test.world) gazebo world. The image of this world is:
+
+![Drone Test World](images/drone_test_world.jpg)
+
+
+## Credits
+- Shanghai Jiao Tong University Drone (sjtu_drone) repository (link: https://github.com/NovoG93/sjtu_drone). The description & control packages in the repository used under the GPL-3.0 license.
+- [Leon Hart Yao](https://github.com/leonhartyao) & [Robotik AG](https://github.com/IfabotTUD): The drone test world on which the RL model was trained. Used under the GPL-3.0 license.
+
 
 ## Project Members
 [Melania Yoo](https://github.com/melaniayoo/), Ahnaful Hoque, &amp; [Karan Kapoor](https://github.com/k-kaps/)
