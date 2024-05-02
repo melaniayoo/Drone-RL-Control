@@ -1,10 +1,11 @@
 from rclpy.Node import Node
 from geometry_msgs.msg import Twist
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import LaserScan
 from sensor_msgs.msg import Imu
 from sensor_msgs.msg import Range
 from sensor_msgs.msg import NavSatFix
 from geometry_msgs.msg import TwistStamped
+import numpy as np
 
 class DroneController(Node):
     def __init__(self):
@@ -15,15 +16,15 @@ class DroneController(Node):
         self.action_space_vel = self.create_publisher(Twist, '/simple_drone/cmd_vel', 10)
         self.get_logger().info("Drone Velocity Publisher created!")
         
-        # State Space Subscribers: Images, IMU, Sonar, GPS Navigation, GPS Velocity
+        # State Space Subscribers: Images, IMU, Lidar, GPS Navigation, GPS Velocity
         # self.state_space_img = self.create_subscriber(Image, '/simple_drone/front/camera_raw', self.state_space_img_callback, 1)
         
         self.state_space_imu = self.create_subscriber(Imu, '/simple_drone/imu/out', self.state_space_imu_callback, 1)
         self.state_space_gpsnav = self.create_subscriber(NavSatFix, '/simple_drone/gps/nav', self.state_space_gpsnav_callback, 1)
-        # self.state_space_sonar = self.create_subscriber(Range, '/simple_drone/sonar/out', self.state_space_sonar_callback, 1)
+        self.state_space_lidar = self.create_subscriber(LaserScan, '/simple_drone/lidar/out', self.state_space_lidar_callback, 1)
         # self.state_space_sonar = self.create_subscriber(Range, '/simple_drone/sonar/out', self.state_space_sonar_callback, 1)
         # self.state_space_gpsvel = self.create_subscriber(TwistStamped, '/simple_drone/gps/vel', self.state_space_gpsvel_callback, 1)
-        self.get_logger().info("Images, IMU, Sonar, GPS Navigation, GPS Velocity Subscribers created!")
+        self.get_logger().info("Images, IMU, Lidar, GPS Navigation, GPS Velocity Subscribers created!")
 
     # Action Space Command Function : Drone Velocity
     def action_space_vel_command(self, velocity):
@@ -55,20 +56,20 @@ class DroneController(Node):
         self.get_logger().info("Sent Velocity (Linear Y) : " + str(velocity[0][3]))
         self.get_logger().info("Sent Velocity (Angular Z) : " + str(velocity[1][3]))
 
-    # State Space Callback Functions: Images, IMU, Sonar, GPS Navigation, GPS Velocity
+    # State Space Callback Functions: Images, IMU, Lidar, GPS Navigation, GPS Velocity
     # Ignoring the GPS Vel & Img state space for now too keep the variables simple
     #
     def state_space_imu_callback(self, msg:Imu):
         # TODO : Add orientation info of the drone with the IMU msg orientation param
-        self._agent_orientation = None
+        self._agent_orientation = np.array([msg.orientation.x, msg.orientation.y, msg.orientation.z, msg.orientation.w ])
 
-    # def state_space_sonar_callback(self, msg:Range):
-    #     # TODO : Add
-    #     self._sonar_data = None
+    def state_space_lidar_callback(self, msg:LaserScan):
+        self._agent_lidar_data = np.array(msg.ranges)
+        # TODO : Add
 
     def state_space_gpsnav_callback(self, msg:NavSatFix):
         # TODO : Add postion of the drone with the NavSatFix lat, lon, and altitude params
-        self._agent_location = None
+        self._agent_location = np.array([msg.latitude, msg.longitude, msg.altitude])
 
     # def state_space_gpsvel_callback(self, msg:TwistStamped):
     #     pass
