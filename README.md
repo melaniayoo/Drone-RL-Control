@@ -48,6 +48,13 @@ The reinforcement learning model was trained on the [drone_test](/drone_rl/world
 cd ~/ros2_ws/src
 git clone https://github.com/melaniayoo/Drone-RL-Control.git
 ```
+2. Build the program:
+```
+ros2 launch drone_rl drone_rl_start.launch.py
+```
+```
+ros2 launch drone_rl training_start.launch.py
+```
 
 ## Credits
 - Shanghai Jiao Tong University Drone (sjtu_drone) repository (link: https://github.com/NovoG93/sjtu_drone). The description & control packages in the repository are used under the GPL-3.0 license.
