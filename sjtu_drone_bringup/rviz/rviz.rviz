@@ -125,7 +125,7 @@ Visualization Manager:
       Displays:
         - Alpha: 0.5
           Buffer Length: 1
-          Class: rviz_default_plugins/Range
+        - Class: rviz_default_plugins/Range
           Color: 255; 255; 255
           Enabled: true
           Name: Sonar
@@ -136,18 +136,6 @@ Visualization Manager:
             History Policy: Keep Last
             Reliability Policy: Reliable
             Value: /simple_drone/sonar/out
-          Value: true
-        - Class: rviz_default_plugins/LaserScan
-          Color: 0; 0; 255
-          Enabled: true
-          Name: Laser
-          Topic:
-            Depth: 5
-            Durability Policy: Volatile
-            Filter size: 10
-            History Policy: Keep Last
-            Reliability Policy: Reliable
-            Value: /simple_drone/laser_scanner/out
           Value: true
         - Class: rviz_default_plugins/Image
           Enabled: true
@@ -162,6 +150,19 @@ Visualization Manager:
             History Policy: Keep Last
             Reliability Policy: Reliable
             Value: /simple_drone/bottom/image_raw
+        - Class: rviz_default_plugins/LaserScan
+          Enabled: true
+          Max Value: 1
+          Median window: 5
+          Min Value: 0
+          Name: Laser_Scanner
+          Normalize Range: true
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /simple_drone/laser_scanner/out
           Value: true
         - Class: rviz_default_plugins/Image
           Enabled: true
@@ -193,7 +194,7 @@ Visualization Manager:
             x_scale: 1
             y_scale: 1
             z_scale: 1
-          Class: rviz_imu_plugin/Imu
+        - Class: rviz_imu_plugin/Imu
           Enabled: true
           Name: Imu
           Topic:

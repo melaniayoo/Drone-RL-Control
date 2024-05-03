@@ -1,16 +1,18 @@
 import rclpy
 from rclpy.node import Node
-import gymnasium as gym
 from gymnasium.envs.registration import register
+from drone_rl.drone_env import DroneEnv
+import gymnasium as gym
 from stable_baselines3 import PPO
 from stable_baselines3.common.env_checker import check_env
 from stable_baselines3.common.callbacks import EvalCallback, StopTrainingOnRewardThreshold
-from stable_baselines3.common.monitor import Monitor
 import os
-
+import optuna
+from stable_baselines3.common.evaluation import evaluate_policy
+from stable_baselines3.common.monitor import Monitor
 class DroneTraining(Node):
     def __init__(self):
-        super().__init__("drone training", allow_undeclared_parameters=True, automatically_declare_parameters_from_overrides=True)
+        super().__init__("drone_training", allow_undeclared_parameters=True, automatically_declare_parameters_from_overrides=True)
     
 def main():
     # Defining some constant variables

@@ -79,7 +79,7 @@
         <remapping>cmd_vel:=cmd_vel</remapping>
         <remapping>imu:=imu</remapping>
         <remapping>sonar:=sonar</remapping>
-        <remapping>laser_scanner_plugin:=laser_scanner_plugin</remapping>
+        <remapping>laser_scanner:=laser_scanner</remapping>
         <remapping>camera_front:=camera_front</remapping>
         <remapping>camera_bottom:=camera_bottom</remapping>
         <remapping>camera_front_info:=camera_front_info</remapping>
@@ -204,10 +204,10 @@
           <ray>
               <scan>
                   <horizontal>
-                      <samples>360</samples> <!-- Adjust as needed for resolution -->
-                      <resolution>1.0</resolution> <!-- Adjust as needed -->
-                      <min_angle>-3.14159</min_angle> <!-- Adjust as needed -->
-                      <max_angle>3.14159</max_angle> <!-- Adjust as needed -->
+                      <samples>180</samples> 
+                      <resolution>1.0</resolution>
+                      <min_angle>-1.570796327</min_angle>
+                      <max_angle>1.570796327</max_angle>
                   </horizontal>
               </scan>
               <range>
@@ -227,10 +227,6 @@
               </ros>
               <frame_name>${mp['namespace']}/laser_link</frame_name>
               <output_type>sensor_msgs/LaserScan</output_type>
-              <topicName>scan</topicName> <!-- Adjust as needed -->
-              <alwaysOn>true</alwaysOn>
-              <updateRate>30.0</updateRate>
-              <gaussianNoise>0.0</gaussianNoise>
           </plugin>
       </sensor>
   </gazebo>

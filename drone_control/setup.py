@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'spawn_drone = drone_control.spawn_drone:main'
         ],
     },
 )
