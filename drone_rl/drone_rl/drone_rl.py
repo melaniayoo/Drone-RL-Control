@@ -6,6 +6,7 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.env_checker import check_env
 from stable_baselines3.common.callbacks import EvalCallback, StopTrainingOnRewardThreshold
 from stable_baselines3.common.monitor import Monitor
+import os
 
 class DroneTraining(Node):
     def __init__(self):
@@ -29,8 +30,9 @@ def main():
     node = DroneTraining()
     node.get_logger().info("Drone Training Node Created!")
 
-    model_save_dir = ""
-    log_save_dir = ""
+    current_dir = os.getcwd()
+    model_save_dir = os.path.join(current_dir, "drone_rl", "model_rl")
+    log_save_dir = os.path.join(current_dir, "drone_rl", "logs")
 
     register(
         id = "SJTU-DroneEnv",
