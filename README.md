@@ -32,6 +32,13 @@ The reinforcement learning model was trained on the [drone_test](/drone_rl/world
 
 ![Drone Test World](images/drone_test_world.png)
 
+## Dependencies
+- ROS2 Humble with Ubuntu 22.04 LTS
+- Gazebo integration for ROS2
+- OpenAI Gymnasium
+- Stable Baselines3
+- Tensorboard
+- Optuna (for hyperparameters tuning)
 
 ## Credits
 - Shanghai Jiao Tong University Drone (sjtu_drone) repository (link: https://github.com/NovoG93/sjtu_drone). The description & control packages in the repository are used under the GPL-3.0 license.
