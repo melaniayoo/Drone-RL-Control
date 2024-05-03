@@ -42,7 +42,7 @@ The reinforcement learning model was trained on the [drone_test](/drone_rl/world
 
 ## Build Instructions
 
-First of all, clone this repository inside the src folder of your ROS2 workspace (replace `ros2_ws` with the name of your ROS2 workspace):
+1. Clone this repository inside the src folder of your ROS2 workspace (replace `ros2_ws` with the name of your ROS2 workspace):
 ```
 cd ~/ros2_ws/src
 git clone https://github.com/melaniayoo/Drone-RL-Control.git
