@@ -25,9 +25,8 @@ The reinforcement learning model was trained on the [drone_test](/drone_rl/world
 
 
 ## Credits
-- Shanghai Jiao Tong University Drone (sjtu_drone) repository (link: https://github.com/NovoG93/sjtu_drone). The description & control packages in the repository used under the GPL-3.0 license.
-- [Leon Hart Yao](https://github.com/leonhartyao) & [Robotik AG](https://github.com/IfabotTUD): The drone test world on which the RL model was trained. Used under the GPL-3.0 license.
-
+- Shanghai Jiao Tong University Drone (sjtu_drone) repository (link: https://github.com/NovoG93/sjtu_drone). The description & control packages in the repository are used under the GPL-3.0 license.
+- [aws-robotics](https://github.com/aws-robotics/aws-robomaker-hospital-world): The drone test world on which the RL model was trained. Used under the  MIT-0 license.
 
 ## Project Members
 [Melania Yoo](https://github.com/melaniayoo/), Ahnaful Hoque, &amp; [Karan Kapoor](https://github.com/k-kaps/)
