@@ -3,6 +3,7 @@ The GitHub Repository for the Simulation &amp; Control of a Drone using Reinforc
 
 ## Project Description
 This repository uses different tools like ROS2 Humble, Gazebo, OpenAI Gym, and Stable Baselines3. It helps train agents to find the best way for a robot with a LIDAR sensor to move around and solve path problems. 
+
 The robot implemented is a quadcopter drone with a 180° resolution laser for obstacle detection, an IMU, and a GPS sensor. The LIDAR collects 180 distance measurements that can range from 0 to 10 meters. 
 
 This repository includes the following elements:
