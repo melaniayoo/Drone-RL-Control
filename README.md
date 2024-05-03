@@ -37,6 +37,7 @@ The reinforcement learning model was trained on the [drone_test](/drone_rl/world
 - Gazebo integration for ROS2
 - OpenAI Gymnasium
 - Stable Baselines3
+- aws-robomaker-hospital-world (https://github.com/aws-robotics/aws-robomaker-hospital-world/tree/39969a9d250135835cf13b480865647d1a87b6f4/models)
 - Tensorboard
 - Optuna (for hyperparameters tuning)
 
