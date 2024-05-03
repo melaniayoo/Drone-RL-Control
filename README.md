@@ -40,6 +40,14 @@ The reinforcement learning model was trained on the [drone_test](/drone_rl/world
 - Tensorboard
 - Optuna (for hyperparameters tuning)
 
+## Build Instructions
+
+First of all, clone this repository inside the src folder of your ROS2 workspace (replace `ros2_ws` with the name of your ROS2 workspace):
+```
+cd ~/ros2_ws/src
+git clone https://github.com/melaniayoo/Drone-RL-Control.git
+```
+
 ## Credits
 - Shanghai Jiao Tong University Drone (sjtu_drone) repository (link: https://github.com/NovoG93/sjtu_drone). The description & control packages in the repository are used under the GPL-3.0 license.
 - [aws-robotics](https://github.com/aws-robotics/aws-robomaker-hospital-world): The drone test world on which the RL model was trained. Used under the  MIT-0 license.
