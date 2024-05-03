@@ -162,38 +162,79 @@
         </plugin>
         <pose>0.2 0 0 0 -0 0</pose>
       </sensor>
-      <sensor name='lidar' type='gpu_lidar'>
+      <sensor name='laser_scanner' type='ray'>
         <always_on>1</always_on>
         <visualize>1</visualize>
         <update_rate>30</update_rate>
         <ray>
           <scan>
             <horizontal>
-              <samples>640</samples>
+              <samples>360</samples>
               <resolution>1</resolution>
-              <min_angle>-1.39626</min_angle>
-              <max_angle>1.39626</max_angle>
+              <min_angle>-3.14159</min_angle>
+              <max_angle>3.14159</max_angle>
             </horizontal>
-            <vertical>
-              <samples>1</samples>
-              <resolution>0.01</resolution>
-              <min_angle>0</min_angle>
-              <max_angle>0</max_angle>
-            </vertical>
           </scan>
           <range>
-            <min>0.08</min>
+            <min>0.02</min>
             <max>10</max>
             <resolution>0.01</resolution>
           </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0</mean>
+            <stddev>0.01</stddev>
+          </noise>
         </ray>
-        <plugin name='ignition::gazebo::systems::Sensors' filename='libignition-gazebo-sensors-system.so'>
+        <plugin name='laser_scanner' filename='libgazebo_ros_ray_sensor.so'>
           <ros>
             <namespace>/simple_drone</namespace>
-            <remapping>~/out:=sonar</remapping>
           </ros>
-          <frame_name>/simple_drone/lidar_link</frame_name>
-          <output_type>sensor_msgs/LaserScan/</output_type>
+          <frame_name>/simple_drone/laser_link</frame_name>
+          <output_type>sensor_msgs/LaserScan</output_type>
+          <topicName>scan</topicName>
+          <alwaysOn>1</alwaysOn>
+          <updateRate>30.0</updateRate>
+          <gaussianNoise>0.0</gaussianNoise>
+        </plugin>
+        <pose>0.2 0 0 0 -0 0</pose>
+      </sensor>
+      <sensor name='sonar' type='ray'>
+        <always_on>1</always_on>
+        <visualize>1</visualize>
+        <update_rate>30</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>5</samples>
+              <resolution>1</resolution>
+              <min_angle>-0.12</min_angle>
+              <max_angle>0.12</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>5</samples>
+              <resolution>1</resolution>
+              <min_angle>-0.12</min_angle>
+              <max_angle>0.12</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.02</min>
+            <max>10</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin name='sonar' filename='libgazebo_ros_ray_sensor.so'>
+          <ros>
+            <namespace>/simple_drone</namespace>
+          </ros>
+          <frame_name>/simple_drone/sonar_link</frame_name>
+          <output_type>sensor_msgs/Range</output_type>
           <radiation_type>ultrasound</radiation_type>
         </plugin>
         <pose>0 0 0 3.14159 1.57079 3.14159</pose>
@@ -205,7 +246,8 @@
         <namespace>/simple_drone</namespace>
         <remapping>cmd_vel:=cmd_vel</remapping>
         <remapping>imu:=imu</remapping>
-        <remapping>gpu_lidar:=gpu_lidar</remapping>
+        <remapping>sonar:=sonar</remapping>
+        <remapping>laser_scanner_plugin:=laser_scanner_plugin</remapping>
         <remapping>camera_front:=camera_front</remapping>
         <remapping>camera_bottom:=camera_bottom</remapping>
         <remapping>camera_front_info:=camera_front_info</remapping>

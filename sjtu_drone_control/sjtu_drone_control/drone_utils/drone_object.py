@@ -15,7 +15,7 @@
 from rclpy.node import Node
 from std_msgs.msg import Empty, Bool, Int8, String
 from geometry_msgs.msg import Twist, Pose, Vector3
-from sensor_msgs.msg import Range, Image, Imu
+from sensor_msgs.msg import Range, Image, Imu, LaserScan
 
 STATES = {
     0: "Landed",
@@ -49,6 +49,7 @@ class DroneObject(Node):
 
         # Subscribers
         self.sub_sonar = self.create_subscription(Range, '~/sonar', self.cb_sonar, 1024)
+        self.sub_sonar = self.create_subscription(LaserScan, '~/laser', self.cb_laser, 1024)
         self.sub_imu = self.create_subscription(Range, '~/imu', self.cb_imu, 1024)
         self.sub_front_img = self.create_subscription(Image, '~/front/image_raw',
                                                       self.cb_front_img, 1024)
@@ -308,6 +309,11 @@ class DroneObject(Node):
         """Callback for the sonar sensor"""
         self._sonar = msg
         self._hover_distance = msg.min_range
+    
+    def cb_laser(self, msg: LaserScan):
+        """Callback for the sonar sensor"""
+        self._laser = msg
+        self._obstacte_distance = msg.ranges
 
     def cb_imu(self, msg: Imu):
         """Callback for the imu sensor"""

@@ -19,14 +19,14 @@
     <collision name="sjtu_drone_collision">
       <origin rpy="0 0 0" xyz="0   0   0.04"/>
       <geometry>
-        <mesh filename="file://$(find sjtu_drone_description)/models/sjtu_drone/quadrotor_4.stl"/>
+        <mesh filename="file:///home/karan/MyWorkspace/ros2_ws/install/sjtu_drone_description/share/sjtu_drone_description/models/sjtu_drone/quadrotor_4.stl"/>
         <!-- <mesh filename="package://sjtu_drone/quadrotor_4.stl"/> -->
       </geometry>
     </collision>
     <visual name="sjtu_drone_visual">
       <origin rpy="0 0 0" xyz="0   0   0.04"/>
       <geometry>
-        <mesh filename="file://$(find sjtu_drone_description)/models/sjtu_drone/quadrotor_4.dae"/>
+        <mesh filename="file:///home/karan/MyWorkspace/ros2_ws/install/sjtu_drone_description/share/sjtu_drone_description/models/sjtu_drone/quadrotor_4.dae"/>
         <!-- <mesh filename="package://sjtu_drone/quadrotor_4.dae"/> -->
       </geometry>
     </visual>
@@ -43,6 +43,12 @@
     <child link="front_cam_link"/>
   </joint>
   <link name="front_cam_link"/>
+  <joint name="laser_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.2 0 0"/>
+    <parent link="base_link"/>
+    <child link="laser_link"/>
+  </joint>
+  <link name="laser_link"/>
   <joint name="bottom_cam_joint" type="fixed">
     <origin rpy="0 1.570796326795 0" xyz="0 0 0"/>
     <parent link="base_link"/>
@@ -56,6 +62,7 @@
         <remapping>cmd_vel:=cmd_vel</remapping>
         <remapping>imu:=imu</remapping>
         <remapping>sonar:=sonar</remapping>
+        <remapping>laser_scanner_plugin:=laser_scanner_plugin</remapping>
         <remapping>camera_front:=camera_front</remapping>
         <remapping>camera_bottom:=camera_bottom</remapping>
         <remapping>camera_front_info:=camera_front_info</remapping>
@@ -63,6 +70,7 @@
         <remapping>gps:=gps</remapping>
       </ros>
       <bodyName>base_link</bodyName>
+      <pub_odom>true</pub_odom>
       <rollpitchProportionalGain>10.0</rollpitchProportionalGain>
       <rollpitchDifferentialGain>5.0</rollpitchDifferentialGain>
       <rollpitchLimit>0.5</rollpitchLimit>
@@ -103,17 +111,18 @@
           <type>gaussian</type>
           <rate>
             <mean> 0 </mean>
-            <stddev> 0 </stddev>
+            <stddev> 0.01 </stddev>
           </rate>
           <accel>
             <mean> 0 </mean>
-            <stddev> 0.00 </stddev>
+            <stddev> 0.01 </stddev>
           </accel>
         </noise>
       </imu>
       <plugin filename="libgazebo_ros_imu_sensor.so" name="imu">
         <ros>
           <namespace>/simple_drone</namespace>
+          <!-- <remapping>imu:=imu</remapping> -->
         </ros>
         <initial_orientation_as_reference>false</initial_orientation_as_reference>
         <frame_name>/simple_drone/base_link</frame_name>
@@ -163,6 +172,50 @@
       </plugin>
     </sensor>
   </gazebo>
+  <!-- Laser sensor in 100fps -->
+  <gazebo reference="laser_link">
+    <sensor name="laser_scanner" type="ray">
+      <always_on>1</always_on>
+      <visualize>1</visualize>
+      <update_rate>30</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <!-- Adjust as needed for resolution -->
+            <resolution>1.0</resolution>
+            <!-- Adjust as needed -->
+            <min_angle>-3.14159</min_angle>
+            <!-- Adjust as needed -->
+            <max_angle>3.14159</max_angle>
+            <!-- Adjust as needed -->
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.02</min>
+          <max>10</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin filename="libgazebo_ros_ray_sensor.so" name="laser_scanner">
+        <ros>
+          <namespace>/simple_drone</namespace>
+        </ros>
+        <frame_name>/simple_drone/laser_link</frame_name>
+        <output_type>sensor_msgs/LaserScan</output_type>
+        <topicName>scan</topicName>
+        <!-- Adjust as needed -->
+        <alwaysOn>true</alwaysOn>
+        <updateRate>30.0</updateRate>
+        <gaussianNoise>0.0</gaussianNoise>
+      </plugin>
+    </sensor>
+  </gazebo>
   <gazebo reference="front_cam_link">
     <sensor name="front_camera" type="camera">
       <always_on>1</always_on>
@@ -182,7 +235,7 @@
         <noise>
           <type>gaussian</type>
           <mean>0.0</mean>
-          <stddev>0.005</stddev>
+          <stddev>0.01</stddev>
         </noise>
       </camera>
       <plugin filename="libgazebo_ros_camera.so" name="camera_front">
@@ -217,7 +270,7 @@
         <noise>
           <type>gaussian</type>
           <mean>0.0</mean>
-          <stddev>0.005</stddev>
+          <stddev>0.01</stddev>
         </noise>
       </camera>
       <plugin filename="libgazebo_ros_camera.so" name="camera_bottom">
@@ -256,6 +309,22 @@
         <ros>
           <namespace>/simple_drone</namespace>
           <remapping>~/out:=~/nav</remapping>
+        </ros>
+        <frame_name>/simple_drone/base_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+  <gazebo reference="base_link">
+    <sensor name="collision_sensor" type="contact">
+      <update_rate>100.0</update_rate>
+      <always_on>true</always_on>
+      <contact>
+        <collision>base_footprint_fixed_joint_lump__sjtu_drone_collision_collision</collision>
+      </contact>
+      <plugin filename="libgazebo_ros_bumper.so" name="collision_plugin">
+        <ros>
+          <namespace>/simple_drone</namespace>
+          <!-- <remapping>bumper_states:=bumper_states</remapping> -->
         </ros>
         <frame_name>/simple_drone/base_link</frame_name>
       </plugin>
