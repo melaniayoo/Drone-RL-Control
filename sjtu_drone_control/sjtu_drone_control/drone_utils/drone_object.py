@@ -49,7 +49,7 @@ class DroneObject(Node):
 
         # Subscribers
         self.sub_sonar = self.create_subscription(Range, '~/sonar', self.cb_sonar, 1024)
-        self.sub_sonar = self.create_subscription(LaserScan, '~/laser', self.cb_laser, 1024)
+        self.sub_sonar = self.create_subscription(LaserScan, '~/laser_scanner', self.cb_laser, 1024)
         self.sub_imu = self.create_subscription(Range, '~/imu', self.cb_imu, 1024)
         self.sub_front_img = self.create_subscription(Image, '~/front/image_raw',
                                                       self.cb_front_img, 1024)
