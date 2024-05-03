@@ -21,7 +21,7 @@ Drone-RL-Control
 ## Training the Model
 The reinforcement learning model was trained on the [drone_test](/drone_rl/worlds/drone_test.world) gazebo world. The image of this world is:
 
-![Drone Test World](images/drone_test_world.jpg)
+![Drone Test World](images/drone_test_world.png)
 
 
 ## Credits
