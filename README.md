@@ -61,4 +61,4 @@ ros2 launch drone_rl training_start.launch.py
 - [aws-robotics](https://github.com/aws-robotics/aws-robomaker-hospital-world): The drone test world on which the RL model was trained. Used under the  MIT-0 license.
 
 ## Project Members
-[Melania Yoo](https://github.com/melaniayoo/), Ahnaful Hoque, &amp; [Karan Kapoor](https://github.com/k-kaps/)
+[Melania Yoo](https://github.com/melaniayoo/) &amp; [Karan Kapoor](https://github.com/k-kaps/)
