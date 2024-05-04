@@ -2,13 +2,13 @@
 The GitHub Repository for the Simulation &amp; Control of a Drone using Reinforcement Learning Techniques in a ROS2 Environment.
 
 ## Project Description
-This repository uses different tools like ROS2 Humble, Gazebo, OpenAI Gym, and Stable Baselines3. It helps train agents to find the best way for a robot with a LIDAR sensor to move around and solve path problems. 
+This repository helps train a quadcopter to find the best way around a path. The robot is equipped with a LiDAR, IMU &amp; GPS sensor.
 
-The robot implemented is a quadcopter drone with a 180° resolution laser for obstacle detection, an IMU, and a GPS sensor. The LIDAR collects 180 distance measurements that can range from 0 to 10 meters. 
+**Sensor Specifications:** The LiDAR is a 180° laser for obstacle detection with a resolution of 1. The distance measurements from the LiDAR ray have been normalized to a scale of 0 to 10 meters. The IMU is used to check the orientation of the quadcopte. Finally, the GPS sensor is used for finding the postion of the robot in the world.
 
 This repository includes the following elements:
 - 3D simulation environment of the hospital with the drone.
-- A functional Gym environment designed for training RL agents for motion planning. 
+- A functional OpenAI ymnasium environment designed for training RL agents for motion planning. 
   
 ## Project Structure: 
 The flowchart for the project is as follows:
@@ -18,14 +18,16 @@ The flowchart for the project is as follows:
 The directory structure meanwhile is:
 
 ```
-# [TODO] Add the directory structure here
 Drone-RL-Control
 |---- sjtu_description
 |---- sjtu_drone_control
+|---- sjtu_drone_bringup
 |---- drone_control
 |---- drone_rl
-...
 ```
+Where, the SJTU repository has been used for the drone model & controller. **NOTE:** The drone model has been modified from its original version to have a LiDAR laser scanner for collecting distance data to the obstacles. This laser scan is being published on the `/<namespace>/laser_scanner/out` topic.
+
+The `drone_control` and `drone_rl` packages are used to interact with the drone in the world and train the model respectively. The generated model is stored in the `drone_rl/models_rl` folder.
 
 ## Training the Model
 The reinforcement learning model was trained on the [drone_test](/drone_rl/worlds/drone_test.world) gazebo world. The image of this world is:
@@ -42,19 +44,30 @@ The reinforcement learning model was trained on the [drone_test](/drone_rl/world
 - Optuna (for hyperparameters tuning)
 
 ## Build Instructions
+To train a RL model on the target world with this repostory, the following instructions can be followed:
 
 1. Clone this repository inside the src folder of your ROS2 workspace (replace `ros2_ws` with the name of your ROS2 workspace):
-```
+```bash
 cd ~/ros2_ws/src
 git clone https://github.com/melaniayoo/Drone-RL-Control.git
 ```
-2. Build the program:
+2. Build the project and source the installled files
+```bash
+cd ~/ros2_ws/
+colcon build
+source ./install/setup.bash
 ```
+3. Launch the world file to load the model into the world:
+```bash
 ros2 launch drone_rl drone_rl_start.launch.py
 ```
+- And in a seperate terminal, start the RL process:
+```bash
+ros2 launch drone_rl start_training.launch.py
 ```
-ros2 launch drone_rl training_start.launch.py
-```
+This will start moving the drone around in the world and generating a RL model.
+
+![Drone Test World](images/drone_training.gif)
 
 ## Credits
 - Shanghai Jiao Tong University Drone (sjtu_drone) repository (link: https://github.com/NovoG93/sjtu_drone). The description & control packages in the repository are used under the GPL-3.0 license.
