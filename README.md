@@ -4,11 +4,11 @@ The GitHub Repository for the Simulation &amp; Control of a Drone using Reinforc
 ## Project Description
 This repository helps train a quadcopter to find the best way around a path. The robot is equipped with a LiDAR, IMU &amp; GPS sensor.
 
-**Sensor Specifications:** The LiDAR is a 180° laser for obstacle detection with a resolution of 1. The distance measurements from the LiDAR ray have been normalized to a scale of 0 to 10 meters. The IMU is used to check the orientation of the quadcopte. Finally, the GPS sensor is used for finding the postion of the robot in the world.
+**Sensor Specifications:** The LiDAR is a 180° laser for obstacle detection with a resolution of 1. The distance measurements from the LiDAR ray have been normalized to a scale of 0 to 10 meters. The IMU is used to check the orientation of the quadcopter. Finally, the GPS sensor is used for finding the position of the robot in the world.
 
 This repository includes the following elements:
 - 3D simulation environment of the hospital with the drone.
-- A functional OpenAI ymnasium environment designed for training RL agents for motion planning. 
+- A functional OpenAI gymnasium environment designed for training RL agents for motion planning. 
   
 ## Project Structure: 
 The flowchart for the project is as follows:
@@ -44,14 +44,14 @@ The reinforcement learning model was trained on the [drone_test](/drone_rl/world
 - Optuna (for hyperparameters tuning)
 
 ## Build Instructions
-To train a RL model on the target world with this repostory, the following instructions can be followed:
+To train an RL model on the target world with this repository, the following instructions can be followed:
 
 1. Clone this repository inside the src folder of your ROS2 workspace (replace `ros2_ws` with the name of your ROS2 workspace):
 ```bash
 cd ~/ros2_ws/src
 git clone https://github.com/melaniayoo/Drone-RL-Control.git
 ```
-2. Build the project and source the installled files
+2. Build the project and source the installed files
 ```bash
 cd ~/ros2_ws/
 colcon build
@@ -61,11 +61,11 @@ source ./install/setup.bash
 ```bash
 ros2 launch drone_rl drone_rl_start.launch.py
 ```
-- And in a seperate terminal, start the RL process:
+- And in a separate terminal, start the RL process:
 ```bash
 ros2 launch drone_rl start_training.launch.py
 ```
-This will start moving the drone around in the world and generating a RL model.
+This will start moving the drone around the world and generating an RL model.
 
 ![Drone Test World](images/drone_training.gif)
 
