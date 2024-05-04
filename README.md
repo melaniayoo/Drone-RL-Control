@@ -25,7 +25,8 @@ Drone-RL-Control
 |---- drone_control
 |---- drone_rl
 ```
-Where, the SJTU repository has been used for the drone model & controller. **NOTE:** The drone model has been modified from its original version to have a LiDAR laser scanner for collecting distance data to the obstacles. This laser scan is being published on the `/<namespace>/laser_scanner/out` topic.
+Where, the SJTU repository has been used for the drone model & controller.
+**NOTE:** The drone model has been modified from its original version to have a LiDAR laser scanner for collecting distance data to the obstacles. This laser scan is being published on the `/<namespace>/laser_scanner/out` topic.
 
 The `drone_control` and `drone_rl` packages are used to interact with the drone in the world and train the model respectively. The generated model is stored in the `drone_rl/models_rl` folder.
 
